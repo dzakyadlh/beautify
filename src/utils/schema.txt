@@ -1,0 +1,43 @@
+users Table
+    └─ id (uuid, PK)
+    ├─ name
+    ├─ email
+    ├─ address
+    ├─ phone_number
+    ├─ created_at
+
+products Table
+    └─ id (uuid, PK)
+    ├─ title
+    ├─ description
+    ├─ price
+    ├─ stock
+    ├─ category_id (uuid, FK -> categories.id)
+    ├─ image_url
+    ├─ created_at
+
+product_details Table
+    └─ id (uuid, PK)
+    ├─ product_id
+    ├─ title
+    ├─ detail
+    ├─ created_at
+
+carts Table
+    └─ id (uuid, PK)
+    ├─ user_id (uuid, FK -> users.id)
+    ├─ status
+    ├─ created_at
+
+cart_items Table
+    └─ id (uuid, PK)
+    ├─ cart_id (uuid, FK -> carts.id)
+    ├─ product_id (uuid, FK -> products.id)
+    ├─ quantity
+    ├─ created_at
+
+categories Table
+    └─ id (uuid, PK)
+    ├─ name
+    ├─ description
+    ├─ created_at
