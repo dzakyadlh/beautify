@@ -12,7 +12,10 @@ module.exports = {
         foreground: 'var(--foreground)',
         subtitle: '#d1d5db',
         beige: '#ede8d0',
+        darkbeige: '#DEBE1D',
         tertiary: '#F0DB75',
+        cream: '#FAF1E5',
+        browncream: '#D39033',
       },
       borderColor: {
         'default-border': '#404040',

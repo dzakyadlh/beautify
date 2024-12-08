@@ -3,10 +3,19 @@
 import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { CommonFormInput } from '@/components/custom/inputFields';
-import { Button, Input } from '@chakra-ui/react';
+import { CommonFormInput } from '@/components/inputFields';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import {
+  CustomOutlinedButton,
+  CustomPrimaryButton,
+} from '@/components/customButtons';
+import { signUp } from '@/api/auth';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function SignUpPage() {
+  const router = useRouter();
+
   const validationSchema = Yup.object({
     fullName: Yup.string().required('Full name is required'),
     email: Yup.string()
@@ -20,8 +29,8 @@ export default function SignUpPage() {
 
   return (
     <React.Fragment>
-      <div className="bg-beige w-full h-screen flex items-center justify-center">
-        <div className="bg-white w-full sm:w-4/5 lg:w-3/5 2xl:w-2/5 p-5 border border-black rounded-lg flex flex-col gap-5">
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="bg-beige w-full sm:w-3/5 lg:w-2/5 2xl:w-1/4 p-5 border border-black rounded-lg flex flex-col items-center gap-5">
           <Formik
             initialValues={{
               fullName: '',
@@ -30,16 +39,27 @@ export default function SignUpPage() {
               phoneNumber: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, actions) => {
+            onSubmit={async (values, actions) => {
               actions.setSubmitting(true);
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
+              try {
+                const response = await signUp(
+                  values.email,
+                  values.password,
+                  values.fullName,
+                  values.phoneNumber
+                );
+                if (response) {
+                  router.push('/signin');
+                }
+              } catch (error) {
+                alert(`Sign-up failed: ${error.message}`);
+              } finally {
                 actions.setSubmitting(false);
-              }, 1000);
+              }
             }}
           >
             {(props) => (
-              <Form onSubmit={props.handleSubmit}>
+              <Form onSubmit={props.handleSubmit} className="w-full">
                 <div className="flex flex-col gap-5">
                   <Field name="fullName">
                     {({ field, form }) => (
@@ -89,18 +109,27 @@ export default function SignUpPage() {
                       />
                     )}
                   </Field>
-                  <Button
+                  <CustomPrimaryButton
                     type="submit"
+                    text="Sign Up"
                     isLoading={props.isSubmitting}
-                    variant="solid"
-                    color="tertiary"
-                  >
-                    Sign Up
-                  </Button>
+                  />
                 </div>
               </Form>
             )}
           </Formik>
+          <CustomOutlinedButton icon={faGoogle} text="Sign Up With Google" />
+          <p>
+            Already have an account?{' '}
+            <span>
+              <Link
+                href="/signin"
+                className="font-medium text-blue-500 hover:underline"
+              >
+                Sign In
+              </Link>
+            </span>
+          </p>
         </div>
       </div>
     </React.Fragment>
