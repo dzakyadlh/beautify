@@ -1,28 +1,75 @@
+'use client';
+
 import { CTAButton, CustomPrimaryButton } from '@/components/customButtons';
-import { ProductCard, ReviewCard } from '@/components/customCards';
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar/navbar';
+import { ProductCard, ReviewCard, StatsCard } from '@/components/customCards';
+import { ProductList } from '@/components/productList';
 import { Avatar } from '@chakra-ui/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function Home() {
+  const sampleProducts = [
+    {
+      image: '/images/skincare2.jpg',
+      title: 'Glow Hydration Serum',
+      feature:
+        'Locks in moisture and revives your skin’s natural radiance with hyaluronic acid.',
+    },
+    {
+      image: '/images/skincare1.jpg',
+      title: 'Youth Restore Cream',
+      feature:
+        'Reduces fine lines and wrinkles, leaving your skin feeling firmer and rejuvenated.',
+    },
+    {
+      image: '/images/skincare3.png',
+      title: 'Clear Skin Cleanser',
+      feature:
+        'Gently purifies and balances your skin while preventing breakouts.',
+    },
+    {
+      image: '/images/skincare4.jpg',
+      title: 'Radiance Boost Exfoliator',
+      feature:
+        'Uncover brighter, smoother skin with our gentle AHA & BHA exfoliating formula.',
+    },
+  ];
+
+  const sampleStats = [
+    {
+      title: 'Brighter Skin',
+      percentage: 87,
+      description:
+        'of Beautifies noticed visibly brighter skin after just 1 week of use.',
+    },
+    {
+      title: 'Reduced Dryness',
+      percentage: 92,
+      description:
+        'of Beautifies reported significant hydration and reduced dryness within 10 days.',
+    },
+    {
+      title: 'Improved Texture',
+      percentage: 85,
+      description:
+        'of Beautifies saw improvements in skin texture and reduced fine lines within 4 weeks.',
+    },
+  ];
+
   return (
     <React.Fragment>
       <div className="w-full min-h-screen flex flex-col">
-        <header
-          data-aos="fade-up"
-          className="w-full h-screen flex justify-center px-20 gap-10 pt-28 pb-10"
-        >
-          <div className="flex flex-col w-2/5 gap-5">
-            <div className="relative">
-              <img
+        <header className="w-full min-h-screen 2xl:max-h-[110vh] flex flex-col lg:flex-row xl:justify-center px-5 gap-5 xl:px-20 xl:gap-10 pt-28 pb-10">
+          <div className="flex flex-col w-full xl:w-2/5 gap-5">
+            <div className="relative overflow-hidden rounded-xl">
+              <motion.img
+                whileHover={{ scale: 1.1 }}
                 src="/images/model2.png"
                 className="rounded-xl w-full"
                 alt="Model showcasing skincare"
               />
-              <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
+              <div className="absolute top-0 left-0 w-full 2xl:w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
                 <div className="mb-auto">
                   <p className="text-xl font-semibold">Azizah Sarah</p>
                   <p className="text-sm">Beautify user since 2020</p>
@@ -33,16 +80,35 @@ export default function Home() {
                 </p>
               </div>
             </div>
+            <div className="hidden xl:flex items-center gap-5">
+              <div className="w-1/2 h-48 overflow-clip rounded-xl">
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
+                  src="/images/skincare5.jpg"
+                  alt="skincare"
+                  className="rounded-xl"
+                />
+              </div>
+              <div className="w-1/2 h-48 overflow-clip rounded-xl">
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
+                  src="/images/skincare6.jpg"
+                  alt="skincare"
+                  className="rounded-xl"
+                />
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col w-3/5 gap-10">
+          <div className="flex flex-col w-full xl:w-3/5 gap-10">
             <div className="flex gap-5 h-2/5">
-              <div className="relative w-1/2">
-                <img
+              <div className="relative w-1/2 max-h-80 overflow-hidden rounded-xl">
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
                   src="/images/skincare1.jpg"
                   className="rounded-xl w-full h-full"
                   alt="skincare model"
                 />
-                <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
+                <div className="absolute top-0 left-0 w-full 2xl:w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
                   <div className="mb-auto">
                     <p className="text-xl font-semibold">Coconut Face Mask</p>
                   </div>
@@ -51,13 +117,14 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="relative w-1/2">
-                <img
+              <div className="relative w-1/2 max-h-80 overflow-hidden rounded-xl">
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
                   src="/images/skincare2.jpg"
                   className="rounded-xl w-full h-full"
                   alt="skincare model"
                 />
-                <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
+                <div className="absolute top-0 left-0 w-full 2xl:w-1/2 h-full flex flex-col text-white p-4 rounded-xl">
                   <div className="mb-auto">
                     <p className="text-xl font-semibold">Coconut Face Mask</p>
                   </div>
@@ -67,8 +134,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-3/4">
-              <h1 className="text-6xl font-semibold mb-5">
+            <div className="w-full 2xl:w-5/6">
+              <h1 className="text-5xl xl:text-6xl font-semibold mb-5">
                 <span className="text-browncream">Empower Your Glow.</span>
                 <br />
                 Unlock radiant, healthy skin with our science-backed skincare
@@ -79,54 +146,50 @@ export default function Home() {
                 nature and innovation for every skin type.
               </p>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-col md:flex-row items-center gap-5">
               <Link href="/signup">
                 <CTAButton text="Shop Now" />
               </Link>
-              <div className="flex items-center">
+              <div className="hidden md:flex items-center">
                 <Avatar name="sample1" src="/images/review1.jpg" size="md" />
                 <Avatar name="sample2" src="/images/review2.jpg" size="md" />
                 <Avatar name="sample3" src="/images/review3.jpg" size="md" />
               </div>
-              <p className="font-semibold text-xl">
-                98,726{' '}
-                <span className="font-normal text-sm"> User Reviews</span>
+              <p className="hidden md:flex font-semibold text-xl gap-2">
+                98,726<span className="font-normal">User reviews</span>
               </p>
             </div>
           </div>
         </header>
-        <section
-          data-aos="fade-up"
-          className="w-full h-[60vh] flex justify-between bg-cream gap-12"
-        >
-          <img src="/images/vine_black_r.png" className="h-full" />
-          <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto py-20">
-            <p className="text-2xl leading-relaxed text-gray-700 text-center">
+        <section className="w-full h-auto flex items-center justify-between bg-cream gap-12">
+          <div className="hidden xl:h-full xl:flex xl:items-center">
+            <img src="/images/vine_black_r.png" className="max-h-96" />
+          </div>
+          <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto py-20 px-5">
+            <p className="text-xl xl:text-2xl leading-relaxed text-gray-700 text-center">
               Finding the perfect skincare product shouldn't feel like a gamble.
               With countless options promising miracles, it’s frustrating when
               results fall short. Many brands rely on generic formulas or load
               their products with harmful chemicals that irritate your skin
               rather than nurture it.
             </p>
-            <h2 className="text-4xl font-semibold text-browncream text-center leading-snug">
+            <h2 className="text-3xl xl:text-4xl font-semibold text-browncream text-center leading-snug">
               That's why we’ve revolutionized skincare with cutting-edge
               technology designed to deliver personalized solutions for every
               skin type.
             </h2>
           </div>
-          <img src="/images/vine_black_l.png" className="h-full" />
+          <div className="hidden xl:h-full xl:flex xl:items-center">
+            <img src="/images/vine_black_l.png" className="max-h-96" />
+          </div>
         </section>
-
-        <section
-          data-aos="fade-up"
-          className="w-full h-screen flex items-center p-20 gap-10"
-        >
+        <section className="w-full min-h-screen flex flex-col xl:flex-row items-center p-5 xl:p-20 gap-10">
           <div className="w-full flex flex-col gap-10">
             <h2 className="font-bold text-5xl text-gray-800 leading-snug">
               Our Solution:{' '}
               <span className="text-browncream">Innovation Meets Care</span>
             </h2>
-            <ul className="w-3/4 flex flex-col gap-5">
+            <ul className="w-full lg:w-3/4 flex flex-col gap-5">
               <li className="flex flex-col gap-2">
                 <h3 className="text-3xl font-medium text-browncream">
                   Personalized Skincare, Simplified
@@ -161,75 +224,46 @@ export default function Home() {
           <div className="w-full flex justify-center">
             <img
               src="/images/skincare4.jpg"
-              className="w-3/4 rounded-xl"
+              className="w-full lg:w-3/4 rounded-xl"
               alt="Skin Care Example"
             />
           </div>
         </section>
-        <section
-          data-aos="fade-up"
-          className="h-auto w-full flex justify-between px-28 pb-20 gap-20"
-        >
-          <div className="flex flex-col items-center gap-5 text-center rounded-lg border border-browncream p-10">
-            <h2 className="text-3xl font-medium">Brighter Skin</h2>
-            <p className="text-6xl font-bold text-browncream">87%</p>
-            <p className="text-xl">
-              of Beautifies noticed visibly brighter skin after just 1 week of
-              use.
-            </p>
-          </div>
-          <div className="flex flex-col items-center gap-5 text-center rounded-lg border border-browncream p-10">
-            <h2 className="text-3xl font-medium">Reduced Dryness</h2>
-            <p className="text-6xl font-bold text-browncream">92%</p>
-            <p className="text-xl">
-              of Beautifies reported significant hydration and reduced dryness
-              within 10 days.
-            </p>
-          </div>
-          <div className="flex flex-col items-center gap-5 text-center rounded-lg border border-browncream p-10">
-            <h2 className="text-3xl font-medium">Improved Texture</h2>
-            <p className="text-6xl font-bold text-browncream">85%</p>
-            <p className="text-xl">
-              of Beautifies saw improvements in skin texture and reduced fine
-              lines within 4 weeks.
-            </p>
-          </div>
+        <section className="h-auto w-full flex flex-col md:flex-row justify-between p-10 xl:px-28 xl:pb-20 gap-5 xl:gap-20">
+          {sampleStats.map((stats, index) => (
+            <StatsCard key={index} stats={stats} />
+          ))}
         </section>
-        <section
-          data-aos="fade-up"
-          className="w-full h-auto flex flex-col items-center p-20 gap-10"
-        >
+        <section className="w-full h-auto flex flex-col items-center p-10 xl:p-20 gap-10">
           <h2 className="text-5xl font-bold text-center">
-            Our Bestsellers, Tried and Loved
+            Our Bestsellers,{' '}
+            <span className="text-browncream">Tried and Loved</span>
           </h2>
-          <div className="flex gap-10">
-            <ProductCard
-              image="/images/skincare2.jpg"
-              title="Glow Hydration Serum"
-              feature="Locks in moisture and revives your skin’s natural radiance with hyaluronic acid."
-            />
-            <ProductCard
-              image="/images/skincare1.jpg"
-              title="Youth Restore Cream"
-              feature="Reduces fine lines and wrinkles, leaving your skin feeling firmer and rejuvenated."
-            />
-            <ProductCard
-              image="/images/skincare3.png"
-              title="Clear Skin Cleanser"
-              feature="Gently purifies and balances your skin while preventing breakouts."
-            />
-            <ProductCard
-              image="/images/skincare4.jpg"
-              title="Radiance Boost Exfoliator"
-              feature="Uncover brighter, smoother skin with our gentle AHA & BHA exfoliating formula."
-            />
+          <div className="w-full h-auto flex flex-col items-center lg:hidden">
+            <ProductList products={sampleProducts} />
+          </div>
+          <div className="hidden lg:flex gap-5 xl:gap-10">
+            {sampleProducts.map((product, index) => (
+              <motion.div
+                key={index}
+                className="w-full flex flex-col shadow-md p-5 gap-2 rounded-lg border hover:bg-cream hover:border-browncream transition duration-200"
+              >
+                <img
+                  src={product['image']}
+                  alt={product['title']}
+                  className="rounded-lg mb-4 w-full object-cover h-64"
+                />
+                <h4 className="text-xl font-semibold">{product['title']}</h4>
+                <p className="">{product['feature']}</p>
+              </motion.div>
+            ))}
           </div>
         </section>
-        <section className="w-full h-auto flex flex-col items-center p-20 gap-10">
+        <section className="w-full h-auto flex flex-col items-center p-10 xl:p-20 gap-10">
           <h2 className="text-5xl font-bold text-center">
             What they said about us
           </h2>
-          <div className="flex gap-10">
+          <div className="flex flex-col md:flex-row gap-5 xl:gap-10">
             <ReviewCard
               image="/images/review1.jpg"
               name="Lina S."
@@ -253,11 +287,8 @@ export default function Home() {
             />
           </div>
         </section>
-        <section
-          data-aos="fade-right"
-          className="bg-cream h-auto flex justify-between p-20"
-        >
-          <div className="w-1/2 flex flex-col gap-5">
+        <section className="bg-cream h-auto flex justify-between p-10 xl:p-20">
+          <div className="w-full xl:w-1/2 flex flex-col gap-5">
             <h2 className="text-5xl font-semibold">Ready to Get Beautier?</h2>
             <p className="text-3xl">
               Say goodbye to skincare that doesn’t deliver. Experience real,

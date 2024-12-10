@@ -2,36 +2,40 @@
 
 import React, { useState } from 'react';
 import { ProductCard } from '@/components/customCards';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 
 export default function ProductsPage() {
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All');
   const [products, setProducts] = useState([
     // Sample product data
     {
       id: 1,
-      image: '/images/product1.jpg',
+      image: '/images/skincare1.jpg',
       title: 'Facial Cleanser',
       feature: 'Gentle formula for all skin types',
       category: 'Skincare',
     },
     {
       id: 2,
-      image: '/images/product2.jpg',
+      image: '/images/skincare2.jpg',
       title: 'Moisturizer',
       feature: 'Hydrates and soothes dry skin',
       category: 'Skincare',
     },
     {
       id: 3,
-      image: '/images/product3.jpg',
+      image: '/images/skincare5.jpg',
       title: 'Lip Balm',
       feature: 'Nourishes and protects your lips',
       category: 'Lip Care',
     },
     {
       id: 4,
-      image: '/images/product4.jpg',
+      image: '/images/skincare4.jpg',
       title: 'Sunscreen',
       feature: 'SPF 50+ for ultimate sun protection',
       category: 'Sun Care',
@@ -49,16 +53,33 @@ export default function ProductsPage() {
     <React.Fragment>
       <div className="w-full min-h-screen p-10 bg-gray-100 flex flex-col gap-10 pt-28">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
-          <h1 className="text-3xl font-bold text-gray-800">Our Products</h1>
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5">
+          <h1 className="text-4xl font-bold text-gray-800">Our Products</h1>
           {/* Search Bar */}
-          <input
-            type="text"
-            placeholder="Search for products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full sm:w-1/2 px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500"
-          />
+          <div className="w-full xl:w-1/2 flex items-center justify-end gap-2">
+            {isSearchExpanded ? (
+              <motion.input
+                initial={{ opacity: 0, x: 110 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 110 }}
+                type="text"
+                placeholder="Search for products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full sm:w-1/2 px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:border-tertiary"
+              />
+            ) : (
+              <div className="hidden"></div>
+            )}
+            <button
+              className="px-3 py-2 hover:bg-tertiary rounded-lg transition duration-300"
+              onClick={() => {
+                setIsSearchExpanded(!isSearchExpanded);
+              }}
+            >
+              <FontAwesomeIcon icon={faSearch} className="text-xl" />
+            </button>
+          </div>
         </div>
 
         {/* Categories */}
@@ -69,8 +90,8 @@ export default function ProductsPage() {
               onClick={() => setCategory(cat)}
               className={`px-4 py-2 rounded-full ${
                 category === cat
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-gray-800 hover:bg-blue-500 hover:text-white'
+                  ? 'bg-tertiary text-black'
+                  : 'bg-gray-200 text-gray-800 hover:bg-tertiary hover:text-black'
               }`}
             >
               {cat}
@@ -79,15 +100,10 @@ export default function ProductsPage() {
         </div>
 
         {/* Product List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 3xl: gap-5">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                image={product.image}
-                title={product.title}
-                feature={product.feature}
-              />
+              <ProductCard key={product.id} product={product} />
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500">
