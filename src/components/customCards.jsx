@@ -63,3 +63,16 @@ export function StatsCard({ stats }) {
     </motion.div>
   );
 }
+
+export function AddressCard({ address }) {
+  return (
+    <div className="w-full flex flex-col shadow-md rounded-lg border hover:border-browncream transition duration-300">
+      <p className="font-medium p-5 border-b bg-cream">{address.name}</p>
+      <p className="text-sm p-5">{`${address.address}, ${
+        address.district ?? ''
+      }, ${address.city}, ${address.state}, ${address.country}, ${
+        address.postalCode
+      }`}</p>
+    </div>
+  );
+}
